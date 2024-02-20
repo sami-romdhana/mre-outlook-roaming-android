@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OfficeApp
+  xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+  xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides"
+  xsi:type="MailApp"
+>
+  <Id>[APP_ID]</Id>
+
+  <Version>1.0.0.0</Version>
+  <ProviderName>Contoso</ProviderName>
+  <DefaultLocale>en-US</DefaultLocale>
+
+  <DisplayName
+    DefaultValue="MRE Data Access"
+  />
+  <Description
+    DefaultValue="Testing data availability on mobile"
+  />
+
+  <IconUrl DefaultValue="https://[DOMAIN]/assets/logo-64.png" />
+  <HighResolutionIconUrl
+    DefaultValue="https://[DOMAIN]/assets/logo-128.png"
+  />
+
+  <SupportUrl DefaultValue="https://contoso.com/" />
+
+  <AppDomains>
+    <AppDomain>https://contoso.com</AppDomain>
+  </AppDomains>
+
+  <Hosts>
+    <Host Name="Mailbox" />
+  </Hosts>
+
+  <Requirements>
+    <Sets DefaultMinVersion="1.1">
+      <Set Name="Mailbox" />
+    </Sets>
+  </Requirements>
+
+  <FormSettings>
+    <Form xsi:type="ItemRead">
+      <DesktopSettings>
+        <SourceLocation DefaultValue="https://[DOMAIN]/index.html" />
+        <RequestedHeight>250</RequestedHeight>
+      </DesktopSettings>
+    </Form>
+  </FormSettings>
+
+  <Permissions>ReadWriteMailbox</Permissions>
+  <Rule xsi:type="RuleCollection" Mode="Or">
+    <Rule xsi:type="ItemIs" ItemType="Message" FormType="Read" />
+  </Rule>
+  <DisableEntityHighlighting>false</DisableEntityHighlighting>
+
+  <VersionOverrides
+    xmlns="http://schemas.microsoft.com/office/mailappversionoverrides"
+    xsi:type="VersionOverridesV1_0"
+  >
+    <VersionOverrides
+      xmlns="http://schemas.microsoft.com/office/mailappversionoverrides/1.1"
+      xsi:type="VersionOverridesV1_1"
+    >
+      <Requirements>
+        <bt:Sets DefaultMinVersion="1.10">
+          <bt:Set Name="Mailbox" />
+        </bt:Sets>
+      </Requirements>
+      <Hosts>
+        <Host xsi:type="MailHost">
+          <Runtimes>
+            <Runtime resid="HtmlRuntime.Url">
+              <Override type="javascript" resid="JsRuntime.Url" />
+            </Runtime>
+          </Runtimes>
+
+          <DesktopFormFactor>
+            <ExtensionPoint xsi:type="MessageComposeCommandSurface">
+              <OfficeTab id="TabDefault">
+                <Group id="signaturesGroupMessageCompose">
+                  <Label resid="GroupLabel" />
+
+                  <Control
+                    xsi:type="Button"
+                    id="signatureTaskpaneButtonMessageCompose"
+                  >
+                    <Label resid="TaskpaneButton.Label" />
+                    <Supertip>
+                      <Title resid="TaskpaneButton.Label" />
+                      <Description resid="TaskpaneButton.Tooltip" />
+                    </Supertip>
+                    <Icon>
+                      <bt:Image size="16" resid="Icon.16x16" />
+                      <bt:Image size="32" resid="Icon.32x32" />
+                      <bt:Image size="80" resid="Icon.80x80" />
+                    </Icon>
+                    <Action xsi:type="ShowTaskpane">
+                      <SourceLocation resid="Taskpane.Url" />
+                    </Action>
+                  </Control>
+                </Group>
+              </OfficeTab>
+            </ExtensionPoint>
+
+            <ExtensionPoint xsi:type="AppointmentOrganizerCommandSurface">
+              <OfficeTab id="TabDefault">
+                <Group id="signaturesGroupAppointmentOrganizer">
+                  <Label resid="GroupLabel" />
+
+                  <Control
+                    xsi:type="Button"
+                    id="signatureTaskpaneButtonAppointmentOrganizer"
+                  >
+                    <Label resid="TaskpaneButton.Label" />
+                    <Supertip>
+                      <Title resid="TaskpaneButton.Label" />
+                      <Description resid="TaskpaneButton.Tooltip" />
+                    </Supertip>
+                    <Icon>
+                      <bt:Image size="16" resid="Icon.16x16" />
+                      <bt:Image size="32" resid="Icon.32x32" />
+                      <bt:Image size="80" resid="Icon.80x80" />
+                    </Icon>
+                    <Action xsi:type="ShowTaskpane">
+                      <SourceLocation resid="Taskpane.Url" />
+                    </Action>
+                  </Control>
+                </Group>
+              </OfficeTab>
+            </ExtensionPoint>
+
+            <ExtensionPoint xsi:type="LaunchEvent">
+              <LaunchEvents>
+                <LaunchEvent
+                  Type="OnNewMessageCompose"
+                  FunctionName="triggerComposeEvent"
+                />
+                <LaunchEvent
+                  Type="OnNewAppointmentOrganizer"
+                  FunctionName="triggerComposeEvent"
+                />
+              </LaunchEvents>
+              <SourceLocation resid="HtmlRuntime.Url" />
+            </ExtensionPoint>
+          </DesktopFormFactor>
+
+          <MobileFormFactor>
+            <ExtensionPoint xsi:type="LaunchEvent">
+              <LaunchEvents>
+                <LaunchEvent
+                  Type="OnNewMessageCompose"
+                  FunctionName="triggerComposeEvent"
+                />
+                <LaunchEvent
+                  Type="OnNewAppointmentOrganizer"
+                  FunctionName="triggerComposeEvent"
+                />
+              </LaunchEvents>
+              <SourceLocation resid="HtmlRuntime.Url" />
+            </ExtensionPoint>
+          </MobileFormFactor>
+        </Host>
+      </Hosts>
+
+      <Resources>
+        <bt:Images>
+          <bt:Image
+            id="Icon.16x16"
+            DefaultValue="https://[DOMAIN]/assets/logo-16.png"
+          />
+          <bt:Image
+            id="Icon.32x32"
+            DefaultValue="https://[DOMAIN]/assets/logo-32.png"
+          />
+          <bt:Image
+            id="Icon.64x64"
+            DefaultValue="https://[DOMAIN]/assets/logo-64.png"
+          />
+          <bt:Image
+            id="Icon.80x80"
+            DefaultValue="https://[DOMAIN]/assets/logo-80.png"
+          />
+          <bt:Image
+            id="Icon.128x128"
+            DefaultValue="https://[DOMAIN]/assets/logo-128.png"
+          />
+        </bt:Images>
+
+        <bt:Urls>
+          <bt:Url
+            id="Taskpane.Url"
+            DefaultValue="https://[DOMAIN]/index.html"
+          />
+          <bt:Url
+            id="JsRuntime.Url"
+            DefaultValue="https://[DOMAIN]/events.js"
+          />
+          <bt:Url
+            id="HtmlRuntime.Url"
+            DefaultValue="https://[DOMAIN]/events.html"
+          />
+        </bt:Urls>
+        <bt:ShortStrings>
+          <bt:String
+            id="GroupLabel"
+            DefaultValue="MRE"
+          />
+          <bt:String
+            id="TaskpaneButton.Label"
+            DefaultValue="Open taskpane"
+          />
+        </bt:ShortStrings>
+        <bt:LongStrings>
+          <bt:String
+            id="TaskpaneButton.Tooltip"
+            DefaultValue="Opens a pane."
+          />
+        </bt:LongStrings>
+      </Resources>
+
+      <WebApplicationInfo>
+        <Id>[APP_ID]</Id>
+        <Resource>api://[DOMAIN]/[APP_ID]</Resource>
+        <Scopes>
+          <Scope>User.Read</Scope>
+          <Scope>profile</Scope>
+          <Scope>openid</Scope>
+          <Scope>email</Scope>
+          <Scope>offline_access</Scope>
+        </Scopes>
+      </WebApplicationInfo>
+    </VersionOverrides>
+  </VersionOverrides>
+</OfficeApp>
